@@ -49,7 +49,13 @@ export default function FarmMap({ location }: FarmMapProps) {
 
   // If we have a valid URL, display the map.
   return (
-    <div className="h-64 md:h-80 w-full mt-4 rounded-lg overflow-hidden border-2 border-gray-300 shadow-md">
+    <div className="relative h-64 md:h-80 w-full mt-4 rounded-lg overflow-hidden border-2 border-gray-300 shadow-md">
+      {displayName && (
+        <div className="flex items-center px-4 py-3 bg-yellow-50 border-b-2 border-yellow-400 rounded-t-lg">
+          <span className="text-2xl mr-2">📍</span>
+          <span className="font-bold text-lg text-black">{displayName}</span>
+        </div>
+      )}
       <iframe
         width="100%"
         height="100%"
@@ -59,7 +65,21 @@ export default function FarmMap({ location }: FarmMapProps) {
         title={`Map of ${displayName || 'selected location'}`}
         aria-label={`Map showing the location of ${displayName || 'selected location'}`}
       />
+      {/* Pinpoint marker overlay */}
+      {(lat && lon) && (
+        <div
+          className="absolute"
+          style={{
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -100%)',
+            pointerEvents: 'none',
+            zIndex: 10,
+          }}
+        >
+          <span style={{ fontSize: '2rem', color: 'red', textShadow: '0 0 4px white' }}>📍</span>
+        </div>
+      )}
     </div>
   );
 }
-

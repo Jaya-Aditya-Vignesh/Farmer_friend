@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Leaf, Bot, LayoutDashboard } from "lucide-react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const user = await currentUser();
@@ -19,11 +20,11 @@ export default async function DashboardLayout({ children }: { children: ReactNod
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <Link href="/dashboard" className="flex items-center space-x-2 text-xl font-bold text-green-700">
-              <Leaf size={28} />
-              <span>Farmer Companion</span>
-            </Link>
-            <div className="flex items-center space-x-4">
+              <Link href="/dashboard" className="flex items-center space-x-2 text-xl font-bold text-green-700">
+                  <Image src="/logo.jpg" alt="Logo" width={28} height={28} priority />
+                  <span>Disha Kisan</span>
+              </Link>
+              <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600 hidden sm:block">
                 Welcome, {fullName || user.emailAddresses[0].emailAddress}
               </span>

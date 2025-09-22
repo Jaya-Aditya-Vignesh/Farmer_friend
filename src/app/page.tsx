@@ -1,7 +1,19 @@
+"use client";
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function HomePage() {
+  const router = useRouter();
+  const { isSignedIn } = useUser();
+
+  useEffect(() => {
+    if (isSignedIn) {
+      router.replace("/dashboard");
+    }
+  }, [isSignedIn, router]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b">
@@ -64,18 +76,6 @@ export default function HomePage() {
               </Link>
             </div>
           </SignedOut>
-          
-          <SignedIn>
-            <p className="text-xl text-gray-600 mb-8">
-              You're signed in! Check out your dashboard.
-            </p>
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-            >
-              Go to Dashboard
-            </Link>
-          </SignedIn>
         </div>
       </main>
     </div>
